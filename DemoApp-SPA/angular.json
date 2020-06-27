@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "DemoApp-SPA"
+    }
+  },
+  "defaultProject": "DemoApp-SPA",
+  "cli": {
+    "analytics": false
+  }
 }
