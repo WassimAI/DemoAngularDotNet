@@ -72,5 +72,25 @@ namespace DemoApp.API.Controllers
                 token = tokenHandler.WriteToken(token)
             });
         }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
+        {
+            if(await _repo.UserExists(userRegisterDto.Email)) return BadRequest("user already exists");
+
+            var user = new User{
+                Name = userRegisterDto.Name,
+                Country = userRegisterDto.Country,
+                City = userRegisterDto.City,
+                PersonalInfo = userRegisterDto.PersonalInfo,
+                ImageUrl = userRegisterDto.ImageUrl,
+                Email = userRegisterDto.Email,
+                LastLogin = DateTime.Now
+            };
+
+            var createdUser = await _repo.Register(user, userRegisterDto.Password);
+
+            return StatusCode(201);
+        }
     }
 }

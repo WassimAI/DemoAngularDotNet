@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DemoApp.API.Dtos
 {
-    public class UserDto
+    public class UserRegisterDto
     {
         public int Id { get; set; }
         [Required]

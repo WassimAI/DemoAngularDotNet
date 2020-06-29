@@ -23,9 +23,17 @@ namespace DemoApp.API.Data
             return null;
         }
 
-        public Task<User> Register(User user, string password)
+        public async Task<User> Register(User user, string password)
         {
-            throw new System.NotImplementedException();
+            byte[] passwordHash, passwordSalt;
+            createPasswordHash(password, out passwordHash, out passwordSalt);
+
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            return user;
         }
 
         public async Task<bool> UserExists(string email)
@@ -50,6 +58,16 @@ namespace DemoApp.API.Data
             }
 
             return true;
+        }
+
+        private void createPasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            //The salt here is like a key to the hash
+            using(var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }            
         }
     }
 }

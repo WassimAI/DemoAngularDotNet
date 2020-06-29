@@ -1,0 +1,11 @@
+<div class="row">
+  <h4>Test Users Component</h4>
+  <hr>
+</div>
+<div class="row">
+  <ul>
+    <li *ngFor="let user of users">
+      {{user.name}} - {{user.email}} - {{user.country}} - {{user.city}}
+    </li>
+  </ul>
+</div>

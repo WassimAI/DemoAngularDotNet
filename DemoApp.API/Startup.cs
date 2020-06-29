@@ -40,6 +40,8 @@ namespace DemoApp.API
             services.AddScoped<IUsers, UserRepository>();
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddCors();
+
             //This is the auth scheme we are using (bearer)
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => { 
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -64,6 +66,8 @@ namespace DemoApp.API
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
             app.UseAuthorization();
