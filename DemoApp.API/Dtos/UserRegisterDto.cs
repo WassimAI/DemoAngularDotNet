@@ -5,7 +5,6 @@ namespace DemoApp.API.Dtos
 {
     public class UserRegisterDto
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
