@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {UsersService} from '../_services/users.service';
 
 @Component({
   selector: 'app-test-users',
@@ -8,18 +9,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TestUsersComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private usersService: UsersService) { }
   users: any;
 
   ngOnInit() {
-    this.getUsers();
-  }
-
-  getUsers(){
-    this.http.get('http://localhost:5000/api/users').subscribe((data) => {
-      this.users = data;
-      console.log(data);
-    });
   }
 
 }
